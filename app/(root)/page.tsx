@@ -1,13 +1,17 @@
 import BookList from '@/components/BookList'
 import BookOverview from '@/components/BookOverview'
-import { Button } from '@/components/ui/button'
+import {sampleBooks} from '@/constant'
 import React from 'react'
 
 const Home = () => {
   return (
     <>
-    <BookOverview/>
-    <BookList/>
+    <BookOverview {...sampleBooks[0]}/>
+    <BookList
+    title="Lates Books"
+    books={sampleBooks}
+    containerClassName="mt-28"
+    />
     </>
   )
 }
