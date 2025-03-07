@@ -13,8 +13,8 @@ const page = () => {
         fullName: "",
         email: "",
         universityId: 0,
-        universityCard: "",
         password: "",
+        universityCard: "",
       }}
       onSubmit={()=>{}}
 
