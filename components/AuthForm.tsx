@@ -24,6 +24,8 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { FIELD_NAMES, FIELD_TYPES } from "@/constant";
 import ImageUpload from "./ImageUpload";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 interface Props<T extends FieldValues> {
   schema: ZodType<T>;
   defaultValues: T;
@@ -37,13 +39,31 @@ const AuthForm = <T extends FieldValues>({
   defaultValues,
   onSubmit,
 }: Props<T>) => {
+
+  const router = useRouter();
+
+  
   const isSignIn = type === "SIGN_IN";
   const form: UseFormReturn<T> = useForm({
     resolver: zodResolver(schema),
     defaultValues: defaultValues as DefaultValues<T>,
   });
 
-  const handleSubmit: SubmitHandler<T> = async (data) => {};
+  const handleSubmit: SubmitHandler<T> = async (data) => {
+    const result = await onSubmit(data);
+    if(result.success){
+      toast.success(
+        isSignIn
+          ? "You have successfully signed in"
+          : "You have successfully signed up"
+      )
+      router.push('/')
+    }else{
+      toast.error(
+        `Error ${isSignIn? 'signing in': 'signin up'}` 
+      )
+    }
+  };
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-2xl font-semibold text-white">
@@ -55,7 +75,7 @@ const AuthForm = <T extends FieldValues>({
           : "Please complete all fields and upload a valid university ID to gain access to the library"}
       </p>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-full">
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6 w-full">
           {Object.keys(defaultValues).map((field) => (
             <FormField
             key={field} 

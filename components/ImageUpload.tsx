@@ -1,5 +1,5 @@
 'use client';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import { ImageKitProvider, IKUpload, IKImage } from 'imagekitio-next';
 import config from '@/lib/config';
@@ -69,7 +69,7 @@ const ImageUpload = ({onFileChange}:{onFileChange:(filePath: string)=>void}) => 
       {file && (
         <IKImage alt={file.filePath} path={file.filePath} width={500} height={500} />
       )}
-      <ToastContainer />
+    
     </ImageKitProvider>
   );
 };
