@@ -8,8 +8,10 @@ const config={
         },
         databaseUrl: process.env.DATABASE_URL!,
         uptash:{
-            redisUrl: process.env.UPUPSTASH_REDIS_REST_URL,
-            redisToken: process.env.UPSTASH_REDIS_REST_TOKEN
+            redisUrl: process.env.UPUPSTASH_REDIS_REST_URL!,
+            redisToken: process.env.UPSTASH_REDIS_REST_TOKEN!,
+            qstashUrl: process.env.QSTASH_URL!,
+            qstashToken: process.env.QSTASH_TOKEN!,
         }
     }
 }
